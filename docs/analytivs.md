@@ -1,0 +1,8 @@
+Ground-truth coverage. Your app store analytics tools must track App Store, Google Play, and Amazon with hourly ranks, category moves, keyword positions, and transparent discrepancy notes.
+ASO intelligence. Choose analytics tools for mobile apps that expose Keyword Popularity, KEI, Difficulty, Search Visibility, “Downloads by Keywords,” competitor deltas, and Featured, Update timelines, plus alerts on title, subtitle, and screenshot changes.
+Conversion diagnostics. Tie impressions > product page views > install CR to assets, CPPs, store listing experiments, and peer benchmarks so you know which creatives to swap first.
+Ratings operations. An app analytics solution should turn raw reviews into sentiment, topics, and priorities; translate on the fly; auto-tag; route to support; and trigger reply automations with SLAs.
+Organic vs. paid clarity. Some app analytics solutions separate baseline organic lift from campaign spikes with Channel, Organic dashboards, MMP hooks, and Play Install Referrer.
+Automation. Set rules for 1★ surges, rank drops, crash, ANR thresholds, and keyword swings; push to Slack, Zendesk, or Salesforce; auto-reply when conditions hit.
+Reporting. The software should deliver custom dashboards, CSV, XLSX export, cohort cuts, locale splits, and BI connectors for board-ready snapshots.
+Collaboration. Saved views, roles, and bulk actions so growth, support, and engineering move in lockstep.

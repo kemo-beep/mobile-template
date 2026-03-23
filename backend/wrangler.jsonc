@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "backend",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-03-23",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  /**
+   * Environment Variables (Non-Sensitive)
+   * For secrets (DATABASE_URL, etc.), use `wrangler secret put` instead.
+   */
+  "vars": {
+    "NODE_ENV": "production",
+    "API_VERSION": "1.0.0"
+  },
+  // Optional KV namespace for analytics caching (cache key: appId + period)
+  // "kv_namespaces": [{ "binding": "KV_ANALYTICS", "id": "<your-kv-namespace-id>" }]
+  // Environment variables should be set via:
+  // - `.dev.vars` file for local development
+  // - `wrangler secret put <KEY>` for production secrets
+  // Required secrets:
+  //   DATABASE_URL       — NeonDB connection string
+  //   BETTER_AUTH_SECRET  — Secret for signing auth tokens
+  //   BETTER_AUTH_URL     — Public URL of this API (e.g. https://api.example.com)
+}

@@ -1,0 +1,45 @@
+# Copy to .dev.vars — Wrangler loads this for local development.
+# For production, use `wrangler secret put <KEY>` for each secret.
+
+# NeonDB connection string
+# Get this from your Neon dashboard: https://console.neon.tech
+DATABASE_URL=postgresql://user:password@ep-xxx.us-east-2.aws.neon.tech/dbname?sslmode=require
+
+# Better Auth secret — generate a random 32+ character string
+# openssl rand -base64 32
+BETTER_AUTH_SECRET=your-secret-key-here
+
+# Better Auth URL — the public URL of your API
+# Local development:
+BETTER_AUTH_URL=http://localhost:8787
+# Production (update when deploying):
+# BETTER_AUTH_URL=https://your-api.your-domain.workers.dev
+
+# Apple Sign-In (optional — required for iOS App Store if offering social login)
+# APPLE_CLIENT_ID=your-apple-services-id
+# APPLE_CLIENT_SECRET=your-apple-client-secret-jwt
+
+# Google OAuth (optional — for analytics sign-in)
+# Redirect URI in Google Console: http://localhost:8787/api/auth/callback/google
+# GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
+# GOOGLE_CLIENT_SECRET=your-client-secret
+
+# CORS — comma-separated allowed origins (optional)
+# In production, set this to restrict origins. Example:
+# ALLOWED_ORIGINS=https://your-app.com,https://app.your-domain.com
+
+# Push Notifications — FCM (Android)
+# FCM_PROJECT_ID=your-project-id
+# FCM_CLIENT_EMAIL=firebase-adminsdk-xxx@project.iam.gserviceaccount.com
+# FCM_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+
+# Push Notifications — APNs (iOS)
+# APNS_KEY_ID=xxx
+# APNS_TEAM_ID=xxx
+# APNS_BUNDLE_ID=com.yourapp
+# APNS_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+# APNS_PRODUCTION=false
+
+# Logging / APM (Axiom) — ship logs for querying
+# AXIOM_TOKEN=your-axiom-token
+# AXIOM_DATASET=backend-logs
