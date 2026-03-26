@@ -114,24 +114,41 @@ function FeatureCard({
       onMouseLeave={() => setIsHovering(false)}
       className={cn(
         "group relative rounded-3xl bg-card p-8 lg:p-10 transition-all duration-500",
-        "border border-border/50 hover:border-border",
-        "hover:shadow-2xl hover:shadow-foreground/5",
+        "border border-border/50 hover:border-foreground/20",
+        "hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_20px_40px_-15px_rgba(255,255,255,0.05)]",
+        "overflow-hidden",
         index === 0 && "sm:col-span-2 lg:col-span-1",
       )}
     >
       {/* Gradient spotlight effect */}
       <div
-        className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 mix-blend-overlay"
         style={{
           background: isHovering
-            ? `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, ${feature.color.split(" ")[0].replace("from-", "rgb(var(--")}, transparent 40%)`
+            ? `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgb(var(--primary)), transparent 40%)`
             : "none",
         }}
       />
       
+      {/* Subtle glowing border that follows mouse */}
+      <div className="pointer-events-none absolute -inset-px rounded-[1.4rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500" 
+        style={{
+          background: isHovering
+            ? `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, rgb(var(--primary)), transparent 40%)`
+            : "none",
+          WebkitMaskImage: "linear-gradient(white, white)",
+          WebkitMaskComposite: "xor",
+          maskImage: "linear-gradient(white, white)",
+          maskComposite: "exclude",
+          padding: "1px",
+        }}
+      >
+        <div className="absolute inset-0 rounded-[1.4rem] bg-card" />
+      </div>
+
       {/* Gradient background */}
       <div className={cn(
-        "absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100",
+        "absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-60",
         `bg-gradient-to-br ${feature.color}`
       )} />
 

@@ -101,12 +101,14 @@ export function Testimonials() {
   )
 }
 
+type TestimonialItem = typeof testimonials[0];
+
 function TestimonialMarquee({ 
-  testimonials, 
+  testimonials: items, 
   direction = "left",
   className
 }: { 
-  testimonials: typeof testimonials
+  testimonials: TestimonialItem[]
   direction?: "left" | "right"
   className?: string
 }) {
@@ -131,7 +133,7 @@ function TestimonialMarquee({
         }}
       >
         {/* Double the testimonials for seamless loop */}
-        {[...testimonials, ...testimonials].map((testimonial, index) => (
+        {[...items, ...items].map((testimonial, index) => (
           <TestimonialCard key={`${testimonial.author}-${index}`} testimonial={testimonial} />
         ))}
       </div>

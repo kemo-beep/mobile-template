@@ -1,3 +1,4 @@
+import { useState, useRef } from "react";
 import { Activity, Apple, Fingerprint, Menu, Moon, Star, X, Zap } from "lucide-react";
 import Link from "next/link";
 import { AppStoreButton, CheckIcon, Reveal, SparklesIcon } from "./ui";
@@ -74,17 +75,27 @@ export function Navigation({
 }
 
 export function HeroSection() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    const x = (clientX / innerWidth - 0.5) * 20;
+    const y = (clientY / innerHeight - 0.5) * -20;
+    setMousePosition({ x, y });
+  };
+
   return (
-    <section className="relative pt-40 pb-20 lg:pt-52 lg:pb-32 overflow-hidden">
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-gradient-to-tr from-indigo-500/20 via-purple-500/10 to-transparent rounded-full blur-[100px] -z-10 animate-pulse-glow" />
+    <section className="relative pt-40 pb-20 lg:pt-52 lg:pb-32 overflow-hidden" onMouseMove={handleMouseMove}>
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-gradient-to-tr from-indigo-500/30 via-purple-500/20 to-transparent rounded-full blur-[120px] -z-10 animate-pulse-glow" style={{ animationDuration: '8s' }} />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_0%,#000_70%,transparent_100%)] -z-10" />
 
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 lg:gap-12 items-center">
         <div className="max-w-2xl text-center lg:text-left mx-auto lg:mx-0 relative z-10">
           <Reveal delay={0}>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-neutral-800 text-xs font-bold uppercase tracking-widest mb-8 border border-neutral-200/50 shadow-sm">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-neutral-800 text-xs font-bold uppercase tracking-[0.2em] mb-8 border border-neutral-200/50 shadow-sm transition-all hover:bg-white/60 cursor-default">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-500 opacity-75" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-500 opacity-75" style={{ animationDuration: '2s' }} />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-600" />
               </span>
               Native iOS Experience
@@ -92,7 +103,7 @@ export function HeroSection() {
           </Reveal>
 
           <Reveal delay={100}>
-            <h1 className="text-6xl sm:text-7xl lg:text-[5.5rem] font-bold tracking-tighter text-neutral-900 leading-[1.05] mb-8">
+            <h1 className="text-6xl sm:text-7xl lg:text-[5.5rem] font-bold tracking-[-0.04em] text-neutral-900 leading-[1.05] mb-8">
               Clear mind.
               <br />
               <span className="text-gradient">Master day.</span>
@@ -100,18 +111,20 @@ export function HeroSection() {
           </Reveal>
 
           <Reveal delay={200}>
-            <p className="text-xl sm:text-2xl text-neutral-500/90 mb-12 leading-relaxed max-w-lg mx-auto lg:mx-0 font-medium">
+            <p className="text-xl sm:text-2xl text-neutral-500/90 mb-12 leading-relaxed max-w-lg mx-auto lg:mx-0 font-medium tracking-tight">
               The beautifully minimalist journal and habit tracker designed exclusively for the Apple ecosystem.
             </p>
           </Reveal>
 
           <Reveal delay={300}>
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6">
-              <AppStoreButton />
+              <div className="transition-transform duration-300 hover:scale-105 hover:shadow-xl rounded-[1.5rem]">
+                <AppStoreButton />
+              </div>
               <div className="flex items-center gap-3 mt-2 sm:mt-0">
                 <div className="flex -space-x-3">
                   {[1, 2, 3, 4].map((i) => (
-                    <div key={i} className="w-10 h-10 rounded-full border-[3px] border-[#fafafa] bg-neutral-200 flex items-center justify-center overflow-hidden shadow-sm">
+                    <div key={i} className="w-10 h-10 rounded-full border-[3px] border-[#fafafa] bg-neutral-200 flex items-center justify-center overflow-hidden shadow-sm hover:-translate-y-1 transition-transform">
                       <img src={`https://i.pravatar.cc/100?img=${i + 20}`} alt="User" className="w-full h-full object-cover" />
                     </div>
                   ))}
@@ -122,7 +135,7 @@ export function HeroSection() {
                       <Star key={i} size={14} fill="currentColor" />
                     ))}
                   </div>
-                  <span className="text-xs text-neutral-500 font-bold mt-1">4.9/5 Average</span>
+                  <span className="text-xs text-neutral-500 font-bold mt-1 tracking-wide">4.9/5 Average</span>
                 </div>
               </div>
             </div>
@@ -130,9 +143,17 @@ export function HeroSection() {
         </div>
 
         <div className="relative w-full flex justify-center lg:justify-end">
-          <Reveal delay={200} direction="scale" className="relative">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[500px] bg-gradient-to-tr from-indigo-400/30 to-purple-400/30 rounded-full blur-[80px] -z-10" />
-            <PhoneMockup />
+          <Reveal delay={200} direction="scale" className="relative group perspective-[1000px]">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[550px] bg-gradient-to-tr from-indigo-400/40 to-purple-400/40 rounded-full blur-[100px] -z-10 group-hover:blur-[120px] transition-all duration-700" />
+            <div 
+              className="will-change-transform"
+              style={{
+                transform: `rotateY(${mousePosition.x}deg) rotateX(${mousePosition.y}deg)`,
+                transition: "transform 0.1s ease-out"
+              }}
+            >
+              <PhoneMockup />
+            </div>
           </Reveal>
         </div>
       </div>
@@ -165,20 +186,59 @@ export function LogoMarqueeSection() {
   );
 }
 
+function FeatureCard({ feature }: { feature: any }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    setMousePosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+      className="group bg-neutral-50 rounded-[2rem] p-10 hover:bg-white transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] border border-neutral-200/50 hover:border-neutral-200 relative overflow-hidden h-full"
+    >
+      <div
+        className="pointer-events-none absolute inset-0 rounded-[2rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100 mix-blend-overlay"
+        style={{
+          background: isHovering
+            ? `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(99, 102, 241, 0.1), transparent 40%)`
+            : "none",
+        }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="relative z-10">
+        <div className="w-16 h-16 rounded-2xl md:bg-white shadow-sm flex items-center justify-center mb-8 border border-neutral-100 group-hover:scale-110 group-hover:shadow-md transition-all duration-500 ease-out bg-gradient-to-br from-white to-neutral-50">
+          {feature.icon}
+        </div>
+        <h3 className="text-2xl font-bold text-neutral-900 mb-4 tracking-[-0.02em]">{feature.title}</h3>
+        <p className="text-neutral-500 leading-relaxed font-medium">{feature.desc}</p>
+      </div>
+    </div>
+  );
+}
+
 export function FeaturesSection() {
   const features = [
     {
-      icon: <Moon size={28} className="text-indigo-600" />,
+      icon: <Moon size={28} className="text-indigo-600 drop-shadow-sm" />,
       title: "Mindful Reflection",
       desc: "Guided prompts help you untangle your thoughts and end your day with absolute clarity.",
     },
     {
-      icon: <Zap size={28} className="text-orange-500" />,
+      icon: <Zap size={28} className="text-orange-500 drop-shadow-sm" />,
       title: "Frictionless Tracking",
       desc: "Log your daily habits with a single tap. Beautiful native widgets keep your goals front and center.",
     },
     {
-      icon: <Fingerprint size={28} className="text-emerald-500" />,
+      icon: <Fingerprint size={28} className="text-emerald-500 drop-shadow-sm" />,
       title: "Absolute Privacy",
       desc: "Your data never leaves your device. FaceID lock and end-to-end encryption come completely standard.",
     },
@@ -202,17 +262,8 @@ export function FeaturesSection() {
 
         <div className="grid md:grid-cols-3 gap-6 lg:gap-10">
           {features.map((feature, index) => (
-            <Reveal key={feature.title} delay={index * 150} direction="up">
-              <div className="group bg-neutral-50 rounded-[2rem] p-10 hover:bg-white transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] border border-neutral-200/50 hover:border-neutral-200 relative overflow-hidden h-full">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative z-10">
-                  <div className="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-8 border border-neutral-100 group-hover:scale-110 transition-transform duration-500 ease-out">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-2xl font-bold text-neutral-900 mb-4 tracking-tight">{feature.title}</h3>
-                  <p className="text-neutral-500 leading-relaxed font-medium">{feature.desc}</p>
-                </div>
-              </div>
+            <Reveal key={feature.title} delay={index * 150} direction="up" className="h-full">
+              <FeatureCard feature={feature} />
             </Reveal>
           ))}
         </div>
@@ -223,14 +274,14 @@ export function FeaturesSection() {
 
 export function DesignSection() {
   return (
-    <section id="design" className="py-32 bg-[#0a0a0a] relative overflow-hidden text-white">
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-[150px] pointer-events-none" />
+    <section id="design" className="py-32 bg-black relative overflow-hidden text-white">
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-indigo-600/30 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-purple-600/30 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6">
         <Reveal>
-          <div className="mb-20 max-w-2xl">
-            <h2 className="text-4xl lg:text-6xl font-bold mb-6 tracking-tighter text-gradient-light">Native to the core.</h2>
+          <div className="mb-20 max-w-2xl text-center lg:text-left mx-auto lg:mx-0">
+            <h2 className="text-4xl lg:text-6xl font-bold mb-6 tracking-[-0.04em] text-gradient-light">Native to the core.</h2>
             <p className="text-neutral-400 text-xl font-medium leading-relaxed">
               Lumina feels right at home on your iPhone. Built with Swift and optimized for iOS 17, it delivers a buttery smooth, premium experience you expect from Apple.
             </p>
@@ -239,11 +290,11 @@ export function DesignSection() {
 
         <div className="grid lg:grid-cols-12 gap-6 auto-rows-[240px]">
           <Reveal className="lg:col-span-8 row-span-2" delay={100}>
-            <div className="dark-glass-card rounded-[2.5rem] h-full p-10 relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-bl from-indigo-500/20 to-transparent rounded-full blur-3xl group-hover:opacity-70 transition-opacity duration-700" />
-              <h3 className="text-3xl font-bold mb-4">Interactive Widgets</h3>
+            <div className="bg-neutral-900/60 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] h-full p-10 relative overflow-hidden group hover:border-white/20 transition-colors duration-500">
+              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-bl from-indigo-500/30 to-transparent rounded-full blur-3xl group-hover:opacity-100 opacity-60 transition-opacity duration-700 pointer-events-none" />
+              <h3 className="text-3xl font-bold mb-4 tracking-tight text-white">Interactive Widgets</h3>
               <p className="text-neutral-400 font-medium max-w-md">Log habits directly from your home screen without ever opening the app. Seamless, instant, magical.</p>
-              <div className="absolute -bottom-10 -right-10 w-[350px] h-[250px] bg-neutral-900/80 backdrop-blur-xl rounded-[2.5rem] border border-white/10 p-6 transform rotate-[-5deg] group-hover:rotate-0 transition-transform duration-700 shadow-2xl">
+              <div className="absolute -bottom-10 -right-10 w-[350px] h-[250px] bg-neutral-900/90 backdrop-blur-3xl rounded-[2.5rem] border border-white/20 p-6 transform rotate-[-5deg] group-hover:rotate-0 group-hover:-translate-y-2 group-hover:-translate-x-2 transition-all duration-700 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.8)]">
                 <div className="flex justify-between items-start mb-6">
                   <div className="w-12 h-12 rounded-full bg-indigo-500/20 flex items-center justify-center">
                     <Activity className="text-indigo-400" size={24} />
@@ -252,7 +303,7 @@ export function DesignSection() {
                 </div>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <span className="font-bold text-lg">Morning Run</span>
+                    <span className="font-bold text-lg text-white">Morning Run</span>
                     <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center">
                       <CheckIcon className="w-4 h-4 text-white" />
                     </div>
@@ -267,19 +318,23 @@ export function DesignSection() {
           </Reveal>
 
           <Reveal className="lg:col-span-4 row-span-1" delay={200}>
-            <div className="dark-glass-card rounded-[2.5rem] h-full p-8 flex flex-col justify-center relative overflow-hidden group">
+            <div className="bg-neutral-900/60 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] h-full p-8 flex flex-col justify-center relative overflow-hidden group hover:border-white/20 transition-colors duration-500">
+              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-[2.5rem] opacity-0 group-hover:opacity-20 blur-2xl transition-opacity duration-500 pointer-events-none" />
               <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
                 <Moon className="text-purple-400" size={24} />
               </div>
-              <h3 className="text-2xl font-bold mb-2">Dark Mode</h3>
+              <h3 className="text-2xl font-bold mb-2 tracking-tight text-white">Dark Mode</h3>
               <p className="text-neutral-400 font-medium">True OLED blacks for late-night journaling.</p>
             </div>
           </Reveal>
 
           <Reveal className="lg:col-span-4 row-span-1" delay={300}>
-            <div className="bg-gradient-to-br from-indigo-600 to-purple-800 rounded-[2.5rem] h-full p-8 flex flex-col justify-end relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-2xl" />
-              <h3 className="text-6xl font-bold tracking-tighter mb-2">0.2s</h3>
+            <div className="bg-gradient-to-br from-indigo-600 to-purple-800 rounded-[2.5rem] h-full p-8 flex flex-col justify-end relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-2xl group-hover:bg-white/30 transition-colors duration-500" />
+              <div className="absolute right-8 top-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -translate-y-2 group-hover:translate-y-0 text-white/50">
+                <Zap size={24} />
+              </div>
+              <h3 className="text-6xl font-bold tracking-tighter mb-2 text-white">0.2s</h3>
               <p className="text-indigo-100 font-medium">Average launch time. Blistering fast.</p>
             </div>
           </Reveal>

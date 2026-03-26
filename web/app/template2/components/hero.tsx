@@ -47,13 +47,13 @@ export function Hero() {
           {/* Main headline */}
           <div className="space-y-4">
             <LineReveal delay={0.1}>
-              <h1 className="text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl xl:text-8xl">
+              <h1 className="text-5xl font-bold tracking-tighter text-foreground sm:text-6xl lg:text-7xl xl:text-[6rem]">
                 Focus on what
               </h1>
             </LineReveal>
             <LineReveal delay={0.2}>
-              <h1 className="text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl xl:text-8xl">
-                <span className="relative inline-block">
+              <h1 className="text-5xl font-bold tracking-tighter text-foreground sm:text-6xl lg:text-7xl xl:text-[6rem]">
+                <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-foreground to-foreground/60">
                   truly matters
                   <svg
                     className="absolute -bottom-2 left-0 w-full h-3 text-foreground/10"
@@ -84,12 +84,13 @@ export function Hero() {
           {/* CTA Buttons */}
           <FadeInUp delay={0.5} className="mt-12">
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-              <MagneticButton strength={0.15}>
+              <MagneticButton strength={0.25}>
                 <Button 
                   size="lg" 
-                  className="group relative rounded-full px-8 py-7 text-base overflow-hidden"
+                  className="group relative rounded-full px-8 py-7 text-base overflow-hidden bg-foreground text-background shadow-[0_0_40px_-10px_rgba(0,0,0,0.5)] dark:shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_-10px_rgba(0,0,0,0.6)] dark:hover:shadow-[0_0_60px_-10px_rgba(255,255,255,0.4)] transition-shadow duration-500"
                 >
-                  <span className="relative z-10 flex items-center gap-2">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent dark:from-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <span className="relative z-10 flex items-center gap-2 font-semibold">
                     Download for iOS
                     <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </span>
